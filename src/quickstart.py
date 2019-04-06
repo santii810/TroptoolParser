@@ -1,4 +1,5 @@
 import csv
+import webbrowser
 
 
 class Coordenada():
@@ -50,16 +51,25 @@ def readTxt(fileName):
 
 
 # Leo coordenadas de los 2 ficheros
+CHROME_PATH = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+NUM_LINKS = 5
 nuevasCoord = readCsv("ListaVacas - Hoja 1.csv")
 antiguasCoordenadas = readTxt("Coordenadas.txt")
 
+
 # genero coordenadas para meter en la lista de vacas
 resta = nuevasCoord.difference(antiguasCoordenadas)
+cont = 0
 for i in resta:
-    print("https://ts20.hispano.travian.com/karte.php?x=" + i.x + "&y=" + i.y)
+    url = "https://ts20.hispano.travian.com/karte.php?x=" + i.x + "&y=" + i.y
+    webbrowser.get(CHROME_PATH).open(url)
+    print(url)
+    antiguasCoordenadas.add(i)
+    cont += 1
+    if cont >= NUM_LINKS:
+        break
 
 # Añado todas las coordendas al registro
-sumaCoord = nuevasCoord.union(antiguasCoordenadas)
 f = open("Coordenadas.txt", "w")
-for i in sumaCoord:
+for i in antiguasCoordenadas:
     f.write(str(i) + "\n")
