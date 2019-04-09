@@ -1,11 +1,12 @@
 import csv
 import webbrowser
 
-
-#Path de instalacion de chrome
+# Path de instalacion de chrome
 CHROME_PATH = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-#Numero maximo de enlaces lanzados en cada ejecucion del programa
+# Numero maximo de enlaces lanzados en cada ejecucion del programa
 NUM_LINKS = 8
+FICHEROS = ["ListaVacas - Hoja 1.csv", "S1.txt"]
+# FICHEROS = ["ListaVacas - Hoja 2.csv", "S2.txt"]
 
 
 class Coordenada():
@@ -48,7 +49,7 @@ def readCsv(fileName):
 
 def readTxt(fileName):
     toret = set()
-    f = open("Coordenadas.txt", "r")
+    f = open(FICHEROS[1], "r")
     for linea in f:
         x = linea[1:].split(",")[0]
         y = linea.split(",")[1].split("]")[0]
@@ -56,25 +57,27 @@ def readTxt(fileName):
     return toret
 
 
+def lanzarEnlaces(coordenadas):
+    cont = 0
+    for i in coordenadas:
+        url = "https://ts20.hispano.travian.com/karte.php?x=" + i.x + "&y=" + i.y
+        webbrowser.get(CHROME_PATH).open(url)
+        print(url)
+        antiguasCoordenadas.add(i)
+        cont += 1
+        if cont >= NUM_LINKS:
+            break
+
+
 # Leo coordenadas de los 2 ficheros
-
-nuevasCoord = readCsv("ListaVacas - Hoja 1.csv")
-antiguasCoordenadas = readTxt("Coordenadas.txt")
-
+nuevasCoord = readCsv(FICHEROS[0])
+antiguasCoordenadas = readTxt(FICHEROS[1])
 
 # genero coordenadas para meter en la lista de vacas
 resta = nuevasCoord.difference(antiguasCoordenadas)
-cont = 0
-for i in resta:
-    url = "https://ts20.hispano.travian.com/karte.php?x=" + i.x + "&y=" + i.y
-    webbrowser.get(CHROME_PATH).open(url)
-    print(url)
-    antiguasCoordenadas.add(i)
-    cont += 1
-    if cont >= NUM_LINKS:
-        break
+lanzarEnlaces(resta)
 
 # Añado todas las coordendas al registro
-f = open("Coordenadas.txt", "w")
+f = open(FICHEROS[1], "w")
 for i in antiguasCoordenadas:
     f.write(str(i) + "\n")
