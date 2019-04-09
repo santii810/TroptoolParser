@@ -2,6 +2,12 @@ import csv
 import webbrowser
 
 
+#Path de instalacion de chrome
+CHROME_PATH = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+#Numero maximo de enlaces lanzados en cada ejecucion del programa
+NUM_LINKS = 8
+
+
 class Coordenada():
     def __init__(self, x, y):
         self.__x = x
@@ -51,8 +57,7 @@ def readTxt(fileName):
 
 
 # Leo coordenadas de los 2 ficheros
-CHROME_PATH = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-NUM_LINKS = 5
+
 nuevasCoord = readCsv("ListaVacas - Hoja 1.csv")
 antiguasCoordenadas = readTxt("Coordenadas.txt")
 
