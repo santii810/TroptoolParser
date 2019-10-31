@@ -17,7 +17,7 @@ function sendRequest(x,  y){
 			"X-Requested-With": "XMLHttpRequest"
 		},
 		"referrer": "https://ts15.hispano.travian.com/build.php?tt=99&id=39",
-		"body": "cmd=raidList&method=ActionAddSlot&listId="+listId+"&slotId=&x="+x+"&y="+y+"&t1="+pretorianos+"&t2=0&t"+imperanos+"=0&t4=0&t5="+imperatoris+"&t6=0&t7=0&t8=0&t9=0&t10=0&ajaxToken="+token,
+		"body": "cmd=raidList&method=ActionAddSlot&listId="+listId+"&slotId=&x="+x+"&y="+y+"&t1="+pretorianos+"&t2=0&t3="+imperanos+"&t4=0&t5="+imperatoris+"&t6=0&t7=0&t8=0&t9=0&t10=0&ajaxToken="+token,
 		"method": "POST",
 		"mode": "cors"
 	});
